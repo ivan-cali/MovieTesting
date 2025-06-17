@@ -1,0 +1,20 @@
+<ng-container *ngIf="movies.length === 0; else gridTemplate">
+  <div class="empty-state text-center py-12">
+    <div class="empty-icon">
+      🎬
+    </div>
+    <h3 class="title">No movies found</h3>
+    <p class="subtitle">Try adjusting your filters to see more results.</p>
+  </div>
+</ng-container>
+
+<ng-template #gridTemplate>
+  <div class="movie-grid">
+    <app-movie-card
+      *ngFor="let movie of movies; index as i"
+      [movie]="movie"
+      [isFavorite]="isFavorite(movie.id)"
+      [onToggleFavorite]="onToggleFavorite"
+    ></app-movie-card>
+  </div>
+</ng-template>

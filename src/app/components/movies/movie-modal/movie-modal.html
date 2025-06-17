@@ -1,0 +1,78 @@
+<div class="modal-container">
+  <!-- Header -->
+  <div class="modal-header">
+    <h2 class="title">{{ data.movie.title }}</h2>
+    <button mat-icon-button (click)="onClose()" aria-label="Close">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <!-- Content -->
+  <div class="modal-content">
+    <div class="poster-section">
+      <img [src]="data.movie.poster" [alt]="data.movie.title" class="poster" />
+      <span class="genre-chip">{{ data.movie.genre }}</span>
+    </div>
+
+    <div class="details-section">
+      <!-- Rating -->
+      <div class="rating-row">
+        <ng-container *ngFor="let star of renderStars(data.movie.rating)">
+          <mat-icon
+            *ngIf="star === 'full'"
+            class="star full"
+          >star</mat-icon
+          >
+          <mat-icon
+            *ngIf="star === 'half'"
+            class="star half"
+          >star_half</mat-icon
+          >
+          <mat-icon
+            *ngIf="star === 'empty'"
+            class="star empty"
+          >star_outline</mat-icon
+          >
+        </ng-container>
+        <span class="rating-value">{{ data.movie.rating }}/5</span>
+      </div>
+
+      <!-- Favorite Button -->
+      <button mat-raised-button color="accent" (click)="toggleFavorite()">
+        <mat-icon>{{ data.isFavorite ? 'favorite' : 'favorite_border' }}</mat-icon>
+        {{ data.isFavorite ? 'Remove from Favorites' : 'Add to Favorites' }}
+      </button>
+
+      <!-- Info -->
+      <div class="info-grid">
+        <div class="info-item"><mat-icon>event</mat-icon>{{ data.movie.year }}</div>
+        <div class="info-item"><mat-icon>schedule</mat-icon>{{ data.movie.duration }}</div>
+        <div class="info-item"><mat-icon>person</mat-icon>{{ data.movie.director }}</div>
+      </div>
+
+      <!-- Synopsis -->
+      <div class="section">
+        <h3>Synopsis</h3>
+        <p>{{ data.movie.description }}</p>
+      </div>
+
+      <!-- Director -->
+      <div class="section">
+        <h3>Director</h3>
+        <p>{{ data.movie.director }}</p>
+      </div>
+
+      <!-- Cast -->
+      <div class="section">
+        <h3><mat-icon>group</mat-icon> Cast</h3>
+        <div class="cast-chips">
+          <mat-chip-listbox>
+            <mat-chip *ngFor="let actor of data.movie.actors" color="primary" selected>
+              {{ actor }}
+            </mat-chip>
+          </mat-chip-listbox>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

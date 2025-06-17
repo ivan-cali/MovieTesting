@@ -1,0 +1,82 @@
+<div
+  class="movie-card"
+  (click)="openModal()"
+>
+  <div class="poster-container">
+    <div class="poster-skeleton" *ngIf="!imageLoaded">
+      <mat-spinner diameter="32" color="warn"></mat-spinner>
+    </div>
+    <img
+      [src]="movie.poster"
+      [alt]="movie.title"
+      class="poster"
+      [class.loaded]="imageLoaded"
+      (load)="imageLoaded = true"
+      (error)="imageLoaded = true"
+    />
+    <div class="poster-gradient"></div>
+
+    <!-- Favorite button -->
+    <button
+      mat-icon-button
+      class="favorite-btn"
+      (click)="toggleFavorite($event)"
+    >
+      <mat-icon [ngClass]="{ favorited: isFavorite }">
+        {{ isFavorite ? 'favorite' : 'favorite_border' }}
+      </mat-icon>
+    </button>
+
+
+
+    <!-- Genre badge -->
+    <div class="genre-badge mat-elevation-z2">
+      {{ movie.genre }}
+    </div>
+  </div>
+
+  <div class="movie-info">
+    <h3 class="movie-title">{{ movie.title }}</h3>
+
+    <div class="info-row">
+      <div class="info-item">
+        <mat-icon class="info-icon">calendar_today</mat-icon>
+        <span>{{ movie.year }}</span>
+      </div>
+      <div class="info-item">
+        <mat-icon class="info-icon">schedule</mat-icon>
+        <span>{{ movie.duration }}</span>
+      </div>
+    </div>
+
+    <div class="stars-row">
+      <div class="stars">
+        <ng-container *ngFor="let i of renderStars(movie.rating); let index = index">
+          <mat-icon
+            *ngIf="index < getFullStars()"
+            color="warn"
+            fontSet="material-icons"
+          >star</mat-icon
+          >
+          <mat-icon
+            *ngIf="index === getFullStars() && hasHalfStar()"
+            color="warn"
+            fontSet="material-icons"
+          >star_half</mat-icon
+          >
+          <mat-icon
+            *ngIf="index >= Math.ceil(movie.rating)"
+            class="empty-star"
+            fontSet="material-icons"
+          >star_border</mat-icon
+          >
+        </ng-container>
+      </div>
+      <span class="rating">{{ movie.rating }}/5</span>
+    </div>
+
+    <p class="description">
+      {{ movie.description }}
+    </p>
+  </div>
+</div>

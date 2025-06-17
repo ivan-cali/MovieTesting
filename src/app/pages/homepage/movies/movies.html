@@ -1,0 +1,60 @@
+<main class="container mx-auto px-4">
+  <!-- Title & Subtitle -->
+  <section class="text-center my-12">
+    <h1 class="text-5xl font-bold text-transparent bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text">
+      MovieRadar
+    </h1>
+    <p class="text-xl text-blue-200 max-w-2xl mx-auto mt-4">
+      Discover amazing movies, explore genres, and build your perfect watchlist
+    </p>
+  </section>
+
+  <!-- Filters -->
+  <section class="filter-section flex flex-wrap gap-6 mb-10 items-center">
+    <mat-form-field appearance="fill" class="w-48 filter-field">
+      <mat-label>Genre</mat-label>
+      <mat-select [value]="selectedGenre" (selectionChange)="onGenreChange($event.value)">
+        <mat-option value="all">All</mat-option>
+        <mat-option *ngFor="let genre of genres" [value]="genre">{{ genre }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-48 filter-field">
+      <mat-label>Min Rating (0-5)</mat-label>
+      <input
+        matInput
+        type="number"
+        step="0.1"
+        min="0"
+        max="5"
+        [value]="minRating"
+        (input)="onRatingChange(clampRating($any($event.target).value))"
+        placeholder="0"
+      />
+    </mat-form-field>
+  </section>
+
+
+  <!-- Movie Cards Grid or Empty State -->
+  <ng-container *ngIf="filteredMovies.length > 0; else emptyState">
+    <section class="movie-grid">
+      <app-movie-card
+        *ngFor="let movie of filteredMovies"
+        [movie]="movie"
+        [isFavorite]="favorites.includes(movie.id)"
+        [onToggleFavorite]="toggleFavorite.bind(this)"
+      ></app-movie-card>
+    </section>
+  </ng-container>
+
+  <ng-template #emptyState>
+    <div class="empty-state text-center py-12">
+      <div class="empty-icon">
+        🎬
+      </div>
+      <h3 class="title">No movies found</h3>
+      <p class="subtitle">Try adjusting your filters to see more results.</p>
+    </div>
+  </ng-template>
+
+</main>

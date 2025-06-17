@@ -1,0 +1,61 @@
+.not-found-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+  font-family: "Roboto", sans-serif;
+  background-color: #f5f7fa;
+  padding: 2rem;
+}
+
+.not-found-card {
+  text-align: center;
+  background-color: #fff;
+  padding: 3rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  max-width: 500px;
+  width: 100%;
+}
+
+.not-found-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1976d2;
+  margin-bottom: 1rem;
+}
+
+.not-found-message {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 2rem;
+}
+
+.not-found-button {
+  background-color: #1976d2;
+  color: white;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.not-found-button:hover {
+  background-color: #0d47a1;
+}
+
+@media (max-width: 600px) {
+  .not-found-title {
+    font-size: 1.5rem;
+  }
+
+  .not-found-message {
+    font-size: 0.9rem;
+  }
+
+  .not-found-button {
+    width: 100%;
+  }
+}
